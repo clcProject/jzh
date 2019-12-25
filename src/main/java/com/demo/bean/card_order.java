@@ -20,7 +20,11 @@ public class card_order {
     private int taocan_id;
     private String taocan_name;
     private String card_name;
+    private String company_name;
+    private String card_number;
     private int order_state;
+    private String express;
+    private String express_no;
     private String logistics;
     private Timestamp createdate;
     private int isfalg;
@@ -31,14 +35,6 @@ public class card_order {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getWechatID() {
-        return wechatid;
-    }
-
-    public void setWechatID(String wechatID) {
-        this.wechatid = wechatID;
     }
 
     public String getUsername() {
@@ -119,5 +115,45 @@ public class card_order {
 
     public void setIsfalg(int isfalg) {
         this.isfalg = isfalg;
+    }
+
+    public String getWechatid() {
+        return wechatid;
+    }
+
+    public void setWechatid(String wechatid) {
+        this.wechatid = wechatid;
+    }
+
+    public String getCompany_name() {
+        return company_name;
+    }
+
+    public void setCompany_name(String company_name) {
+        this.company_name = company_name;
+    }
+
+    public String getCard_number() {
+        return card_number;
+    }
+
+    public void setCard_number(String card_number) {
+        this.card_number = card_number;
+    }
+
+    public String getExpress() {
+        return express;
+    }
+
+    public void setExpress(String express) {
+        this.express = express;
+    }
+
+    public String getExpress_no() {
+        return express_no;
+    }
+
+    public void setExpress_no(String express_no) {
+        this.express_no = express_no;
     }
 }

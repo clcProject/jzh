@@ -1,7 +1,6 @@
 package com.demo.service.impl;
 
 import com.demo.bean.card_number;
-import com.demo.bean.card_taocan;
 import com.demo.dao.CardNumberRepository;
 import com.demo.service.NumberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class NumberServiceImpl implements NumberService {
                 intPageIndex = (Integer.parseInt(pageIndex) - 1) * intPageSize;
             }
             List<Object[]> cardNumberList = cardNumberRepository.selectNumber(startTime, endTime, cardNo, cardTypeid, companyid, cardState, intPageIndex, intPageSize);
-            int cardNumberSize = cardNumberRepository.selectNumberSize(startTime, endTime, cardNo, cardTypeid, companyid,cardState);
+            int cardNumberSize = cardNumberRepository.selectNumberSize(startTime, endTime, cardNo, cardTypeid, companyid, cardState);
             StringBuilder sb = new StringBuilder("{\"code\":\"200\",\"size\":\"" + cardNumberSize + "\",\"content\":[");
             if (cardNumberList.size() > 0) {
                 for (Object[] objects : cardNumberList) {
@@ -64,7 +63,7 @@ public class NumberServiceImpl implements NumberService {
     @Override
     public String getNumberListAll(String cardTypeId, String companyId, String cardState) {
         try {
-            List<card_number> cardNumberList = cardNumberRepository.selectNumberAll(cardTypeId,companyId,cardState);
+            List<card_number> cardNumberList = cardNumberRepository.selectNumberAll(cardTypeId, companyId, cardState);
             StringBuilder sb = new StringBuilder("{\"code\":\"200\",\"content\":[");
             if (cardNumberList.size() > 0) {
                 for (card_number cardNumber : cardNumberList) {
@@ -123,19 +122,19 @@ public class NumberServiceImpl implements NumberService {
         try {
             Timestamp now = new Timestamp(new Date().getTime());
             card_number cardNumber = cardNumberRepository.getOne(Integer.valueOf(cardId));
-            if (cardNo!= null && !"".equals(cardNo)){
+            if (cardNo != null && !"".equals(cardNo)) {
                 cardNumber.setCardno(cardNo);
             }
-            if (password!= null && !"".equals(password)){
+            if (password != null && !"".equals(password)) {
                 cardNumber.setPassword(password);
             }
-            if (cardTypeId != null && !"".equals(cardTypeId)){
+            if (cardTypeId != null && !"".equals(cardTypeId)) {
                 cardNumber.setCard_type_id(Integer.parseInt(cardTypeId));
             }
-            if (companyId != null && !"".equals(companyId)){
+            if (companyId != null && !"".equals(companyId)) {
                 cardNumber.setCompanyId(Integer.parseInt(companyId));
             }
-            if (cardState != null && !"".equals(cardState)){
+            if (cardState != null && !"".equals(cardState)) {
                 cardNumber.setCard_state(Integer.parseInt(cardState));
             }
             cardNumber.setCreatedate(now);
@@ -153,7 +152,7 @@ public class NumberServiceImpl implements NumberService {
 
             int num = Integer.parseInt(number);
 
-            for (int i = 0 ; i < num ; i++){
+            for (int i = 0; i < num; i++) {
                 Timestamp now = new Timestamp(new Date().getTime());
                 long currentTime = System.currentTimeMillis();
                 card_number cardNumber = new card_number();
@@ -168,8 +167,23 @@ public class NumberServiceImpl implements NumberService {
                 cardNumberRepository.save(cardNumber);
             }
 
-            return "{\"code\":\"200\",\"content\":\""+number+"张号卡添加成功\"}";
+            return "{\"code\":\"200\",\"content\":\"" + number + "张号卡添加成功\"}";
         } catch (Exception e) {
+            e.printStackTrace();
+            return "{\"code\":\"201\",\"content\":\"系统异常\"}";
+        }
+    }
+
+    @Override
+    public String IsExist(String cardno) {
+        try {
+            int IsExistResult = cardNumberRepository.IsExist(cardno);
+            if (IsExistResult == 3) {
+                return "{\"code\":\"201\",\"content\":\"卡号已兑换，无法使用\"}";
+            } else{
+                return "{\"code\":\"200\",\"content\":\"未兑换\"}";
+            }
+        } catch (NumberFormatException e) {
             e.printStackTrace();
             return "{\"code\":\"201\",\"content\":\"系统异常\"}";
         }

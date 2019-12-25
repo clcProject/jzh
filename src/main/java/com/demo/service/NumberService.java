@@ -13,4 +13,7 @@ public interface NumberService {
     String updateNumber(String cardId, String cardNo, String password, String cardTypeId, String companyId, String cardState);
 
     String generateCardBatch(String cardTypeId, String companyId, String number);
+
+
+    String IsExist(String cardno);
 }

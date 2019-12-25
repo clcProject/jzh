@@ -11,4 +11,8 @@ public interface TaocanService {
     String addTaocan(String taocanName, String cardTypeId, String companyId, String content, String imgBase64);
 
     String updateTaocan(String taocanId, String taocanName, String cardTypeId, String companyId, String content, String imgBase64);
+
+    String getTaoCanById(Integer taocanID);
+
+    String getTaocanByCardInfo(String cardno, String password);
 }

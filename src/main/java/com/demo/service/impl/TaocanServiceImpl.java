@@ -20,7 +20,8 @@ public class TaocanServiceImpl implements TaocanService {
     private CardTaocanRepository cardTaocanRepository;
 
     @Override
-    public String getTaocanList(String startTime, String endTime, String taocanName, String cardTypeid, String companyid, String pageIndex, String pageSize) {
+    public String getTaocanList(String startTime, String endTime, String taocanName, String cardTypeid,
+                                String companyid, String pageIndex, String pageSize) {
         try {
             int intPageIndex;
             int intPageSize;
@@ -34,9 +35,12 @@ public class TaocanServiceImpl implements TaocanService {
             } else {
                 intPageIndex = (Integer.parseInt(pageIndex) - 1) * intPageSize;
             }
-            List<Object[]> cardTaocanList = cardTaocanRepository.selectTaocan(startTime, endTime, taocanName, cardTypeid, companyid, intPageIndex, intPageSize);
-            int cardTaocanSize = cardTaocanRepository.selectTaocanSize(startTime, endTime, taocanName, cardTypeid, companyid);
-            StringBuilder sb = new StringBuilder("{\"code\":\"200\",\"size\":\"" + cardTaocanSize + "\",\"content\":[");
+            List<Object[]> cardTaocanList = cardTaocanRepository.selectTaocan(startTime, endTime,
+                    taocanName, cardTypeid, companyid, intPageIndex, intPageSize);
+            int cardTaocanSize = cardTaocanRepository.selectTaocanSize(startTime, endTime, taocanName,
+                    cardTypeid, companyid);
+            StringBuilder sb = new StringBuilder("{\"code\":\"200\",\"size\":\"" + cardTaocanSize + "\"," +
+                    "\"content\":[");
             if (cardTaocanList.size() > 0) {
                 for (Object[] objects : cardTaocanList) {
                     sb.append("{");
@@ -65,7 +69,7 @@ public class TaocanServiceImpl implements TaocanService {
     @Override
     public String getTaocanListAll(String cardTypeId, String companyId) {
         try {
-            List<card_taocan> cardTaocanList = cardTaocanRepository.selectTaocanAll(cardTypeId,companyId);
+            List<card_taocan> cardTaocanList = cardTaocanRepository.selectTaocanAll(cardTypeId, companyId);
             StringBuilder sb = new StringBuilder("{\"code\":\"200\",\"content\":[");
             if (cardTaocanList.size() > 0) {
                 for (card_taocan taocan : cardTaocanList) {
@@ -101,12 +105,13 @@ public class TaocanServiceImpl implements TaocanService {
     }
 
     @Override
-    public String addTaocan(String taocanName, String cardTypeId, String companyId, String content, String imgBase64) {
+    public String addTaocan(String taocanName, String cardTypeId, String companyId, String content,
+                            String imgBase64) {
         try {
             Timestamp now = new Timestamp(new Date().getTime());
-            String FilePath  = "";
+            String FilePath = "";
 
-            if (imgBase64 != null && !"".equals(imgBase64)){
+            if (imgBase64 != null && !"".equals(imgBase64)) {
                 imgBase64 = imgBase64.trim();
                 imgBase64 = imgBase64.replaceAll("\n", "");
                 imgBase64 = imgBase64.replaceAll("\r", "");
@@ -157,12 +162,13 @@ public class TaocanServiceImpl implements TaocanService {
     }
 
     @Override
-    public String updateTaocan(String taocanId, String taocanName, String cardTypeId, String companyId, String content, String imgBase64) {
+    public String updateTaocan(String taocanId, String taocanName, String cardTypeId, String companyId,
+                               String content, String imgBase64) {
         try {
             Timestamp now = new Timestamp(new Date().getTime());
             card_taocan cardTaocan = cardTaocanRepository.getOne(Integer.valueOf(taocanId));
 
-            if (imgBase64 != null && !"".equals(imgBase64)){
+            if (imgBase64 != null && !"".equals(imgBase64)) {
                 imgBase64 = imgBase64.trim();
                 imgBase64 = imgBase64.replaceAll("\n", "");
                 imgBase64 = imgBase64.replaceAll("\r", "");
@@ -197,16 +203,16 @@ public class TaocanServiceImpl implements TaocanService {
                 cardTaocan.setImgurl(FilePath);
             }
 
-            if (taocanName!= null && !"".equals(taocanName)){
+            if (taocanName != null && !"".equals(taocanName)) {
                 cardTaocan.setTaocan_name(taocanName);
             }
-            if (cardTypeId != null && !"".equals(cardTypeId)){
+            if (cardTypeId != null && !"".equals(cardTypeId)) {
                 cardTaocan.setCard_type_id(Integer.parseInt(cardTypeId));
             }
-            if (companyId != null && !"".equals(companyId)){
+            if (companyId != null && !"".equals(companyId)) {
                 cardTaocan.setCompanyId(Integer.parseInt(companyId));
             }
-            if (content != null && !"".equals(content)){
+            if (content != null && !"".equals(content)) {
                 cardTaocan.setContent(content);
             }
             cardTaocan.setCreatedate(now);
@@ -217,4 +223,49 @@ public class TaocanServiceImpl implements TaocanService {
             return "{\"code\":\"201\",\"content\":\"系统异常\"}";
         }
     }
+
+    @Override
+    public String getTaoCanById(Integer taocanID) {
+        try {
+            card_taocan card_taocan = cardTaocanRepository.getTaoCanById(taocanID);
+            StringBuilder sb = new StringBuilder("{\"code\":\"200\",\"content\":[");
+            if (card_taocan != null ) {
+
+                sb.append("\"taocanId\":\"" + card_taocan.getId() + "\",");
+                sb.append("\"imgurl\":\"" + card_taocan.getImgurl() + "\",");
+                sb.append("\"content\":\"" + card_taocan.getContent() + "\",");
+                sb.append("\"taocan_name\":\"" + card_taocan.getTaocan_name() + "\"},");
+            }
+            sb.append("]}");
+            return sb.toString();
+        } catch (
+                NumberFormatException e) {
+            e.printStackTrace();
+            return "{\"code\":\"201\",\"content\":\"系统异常\"}";
+        }
+    }
+
+    @Override
+    public String getTaocanByCardInfo(String cardno, String password) {
+        try {
+            List<Object[]> taoCanList = cardTaocanRepository.getTaocanByCardInfo(cardno, password);
+            StringBuilder sb = new StringBuilder("{\"code\":\"200\",\"content\":[");
+            if (taoCanList.size() > 0) {
+                for (Object[] objects : taoCanList) {
+                    sb.append("{");
+                    sb.append("\"taocanId\":\"" + objects[0].toString() + "\",");
+                    sb.append("\"imgurl\":\"" + objects[1].toString() + "\",");
+                    sb.append("\"content\":\"" + objects[2].toString() + "\",");
+                    sb.append("\"taocan_name\":\"" + objects[3].toString() + "\"},");
+                }
+            }
+            sb.append("]}");
+            return sb.toString();
+        } catch (
+                NumberFormatException e) {
+            e.printStackTrace();
+            return "{\"code\":\"201\",\"content\":\"系统异常\"}";
+        }
+    }
+
 }

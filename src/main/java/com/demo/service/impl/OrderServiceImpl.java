@@ -149,9 +149,6 @@ public class OrderServiceImpl implements OrderService {
                     sb.append("\"id\":\"" + order.getId() + "\",");
                     sb.append("\"card_number\":\"" + order.getCard_number() + "\"},");
                 }
-                if (sb.toString().contains("taocanName")) {
-                    sb = sb.deleteCharAt(sb.length() - 1);
-                }
             }
             sb.append("]}");
             return sb.toString();
@@ -164,8 +161,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String insertOrderWeChat(card_order cardOrder) {
         try {
-            cardOrderRepository.save(cardOrder);
-            return "{\"code\":\"200\",\"content\":\"添加成功\"}";
+            int nums = cardOrderRepository.getNumsByNumber(cardOrder.getCard_number());
+            if (nums < 1) {
+                int i = cardOrderRepository.saveWeChatOrder(cardOrder.getAddress(), cardOrder.getCard_name()
+                        , cardOrder.getCard_number(), cardOrder.getCompany_name(), cardOrder.getPhone(),
+                        cardOrder.getTaocan_id(), cardOrder.getTaocan_name(), cardOrder.getUsername(),
+                        cardOrder.getWechatid());
+                return i == 1 ? "{\"code\":\"200\",\"content\":\"添加成功\"}" : "{\"code\":\"203\"," +
+                        "\"content\":\"添加失败\"}";
+            }
+            return "{\"code\":\"202\",\"content\":\"不可重复提交订单\"}";
         } catch (NumberFormatException e) {
             e.printStackTrace();
             return "{\"code\":\"201\",\"content\":\"系统异常\"}";
@@ -182,8 +187,8 @@ public class OrderServiceImpl implements OrderService {
                 sb.append("\"card_name\":\"" + cardOrder.getCard_name() + "\",");
                 sb.append("\"taocan_name\":\"" + cardOrder.getTaocan_name() + "\",");
                 sb.append("\"card_number\":\"" + cardOrder.getCard_number() + "\",");
-                sb.append("\"company_name\":\"" + cardOrder.getTaocan_name() + "\"},");
-                sb.append("\"express_no\":\"" + cardOrder.getExpress_no());
+                sb.append("\"company_name\":\"" + cardOrder.getTaocan_name() + "\"");
+                sb.append("\"express_no\":\"" + cardOrder.getExpress_no() + "\"");
             }
             sb.append("]}");
             return sb.toString();

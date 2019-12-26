@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 public interface CardOrderRepository extends JpaRepository<card_order, Integer> {
-    @Query(value = "SELECT id,card_number FROM card_order WHERE wechatID = ?1 AND isfalg=0", nativeQuery =
+    @Query(value = "SELECT * FROM card_order WHERE wechatID = ?1 AND isfalg=0", nativeQuery =
             true)
     List<card_order> getOrderInfoByWeChatID(String wechatID);
 
@@ -25,4 +25,26 @@ public interface CardOrderRepository extends JpaRepository<card_order, Integer> 
     @Transactional
     int deleteOrder(int orderId);
 
+    @Query(value = "SELECT COUNT(0) FROM card_order WHERE card_number= ?1 AND isfalg=0;",nativeQuery = true)
+    int getNumsByNumber(String card_number);
+
+    @Query(value = "INSERT INTO card_order (\n" +
+            "\taddress,\n" +
+            "\tcard_name,\n" +
+            "\tcard_number,\n" +
+            "\tcompany_name,\n" +
+            "\tphone,\n" +
+            "\ttaocan_id,\n" +
+            "\ttaocan_name,\n" +
+            "\tusername,\n" +
+            "\twechatid\n" +
+            ")\n" +
+            "VALUES\n" +
+            "\t(\n" +
+            "\t\t?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9\n" +
+            "\t)",nativeQuery = true)
+    @Modifying
+    @Transactional
+    int saveWeChatOrder(String cardOrderAddress, String card_name, String card_number, String company_name,
+                        String phone, int taocan_id, String taocan_name, String username, String address);
 }

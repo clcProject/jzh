@@ -28,6 +28,15 @@ public class card_order {
     private String logistics;
     private Timestamp createdate;
     private int isfalg;
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public int getId() {
         return id;

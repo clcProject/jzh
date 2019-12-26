@@ -18,7 +18,8 @@ public class NumberServiceImpl implements NumberService {
     private CardNumberRepository cardNumberRepository;
 
     @Override
-    public String getNumberList(String startTime, String endTime, String cardNo, String cardTypeid, String companyid, String cardState, String pageIndex, String pageSize) {
+    public String getNumberList(String startTime, String endTime, String cardNo, String cardTypeid,
+                                String companyid, String cardState, String pageIndex, String pageSize) {
         try {
             int intPageIndex;
             int intPageSize;
@@ -32,9 +33,12 @@ public class NumberServiceImpl implements NumberService {
             } else {
                 intPageIndex = (Integer.parseInt(pageIndex) - 1) * intPageSize;
             }
-            List<Object[]> cardNumberList = cardNumberRepository.selectNumber(startTime, endTime, cardNo, cardTypeid, companyid, cardState, intPageIndex, intPageSize);
-            int cardNumberSize = cardNumberRepository.selectNumberSize(startTime, endTime, cardNo, cardTypeid, companyid, cardState);
-            StringBuilder sb = new StringBuilder("{\"code\":\"200\",\"size\":\"" + cardNumberSize + "\",\"content\":[");
+            List<Object[]> cardNumberList = cardNumberRepository.selectNumber(startTime, endTime, cardNo,
+                    cardTypeid, companyid, cardState, intPageIndex, intPageSize);
+            int cardNumberSize = cardNumberRepository.selectNumberSize(startTime, endTime, cardNo,
+                    cardTypeid, companyid, cardState);
+            StringBuilder sb = new StringBuilder("{\"code\":\"200\",\"size\":\"" + cardNumberSize + "\"," +
+                    "\"content\":[");
             if (cardNumberList.size() > 0) {
                 for (Object[] objects : cardNumberList) {
                     sb.append("{");
@@ -63,7 +67,8 @@ public class NumberServiceImpl implements NumberService {
     @Override
     public String getNumberListAll(String cardTypeId, String companyId, String cardState) {
         try {
-            List<card_number> cardNumberList = cardNumberRepository.selectNumberAll(cardTypeId, companyId, cardState);
+            List<card_number> cardNumberList = cardNumberRepository.selectNumberAll(cardTypeId, companyId,
+                    cardState);
             StringBuilder sb = new StringBuilder("{\"code\":\"200\",\"content\":[");
             if (cardNumberList.size() > 0) {
                 for (card_number cardNumber : cardNumberList) {
@@ -99,7 +104,8 @@ public class NumberServiceImpl implements NumberService {
     }
 
     @Override
-    public String addNumber(String cardNo, String password, String cardTypeId, String companyId, String cardState) {
+    public String addNumber(String cardNo, String password, String cardTypeId, String companyId,
+                            String cardState) {
         try {
             Timestamp now = new Timestamp(new Date().getTime());
             card_number cardNumber = new card_number();
@@ -118,7 +124,8 @@ public class NumberServiceImpl implements NumberService {
     }
 
     @Override
-    public String updateNumber(String cardId, String cardNo, String password, String cardTypeId, String companyId, String cardState) {
+    public String updateNumber(String cardId, String cardNo, String password, String cardTypeId,
+                               String companyId, String cardState) {
         try {
             Timestamp now = new Timestamp(new Date().getTime());
             card_number cardNumber = cardNumberRepository.getOne(Integer.valueOf(cardId));
@@ -157,7 +164,8 @@ public class NumberServiceImpl implements NumberService {
                 long currentTime = System.currentTimeMillis();
                 card_number cardNumber = new card_number();
                 Random rand = new Random();
-                String cardNo = "ZZ" + String.valueOf(currentTime + (rand.nextInt(899) + 100));     //"E卡+unix时间戳+3位随机数";//
+                String cardNo = "ZZ" + String.valueOf(currentTime + (rand.nextInt(899) + 100));     //"E
+                // 卡+unix时间戳+3位随机数";//
                 cardNumber.setCardno(cardNo);
                 cardNumber.setPassword("1111aaaa");
                 cardNumber.setCard_type_id(Integer.parseInt(cardTypeId));
@@ -178,11 +186,15 @@ public class NumberServiceImpl implements NumberService {
     public String IsExist(String cardno) {
         try {
             int IsExistResult = cardNumberRepository.IsExist(cardno);
-            if (IsExistResult == 3) {
-                return "{\"code\":\"201\",\"content\":\"卡号已兑换，无法使用\"}";
-            } else{
-                return "{\"code\":\"200\",\"content\":\"未兑换\"}";
+            System.out.println(IsExistResult);
+            if (IsExistResult > 0) {
+                if (IsExistResult == 3) {
+                    return "{\"code\":\"201\",\"content\":\"卡号已兑换，无法使用\"}";
+                } else {
+                    return "{\"code\":\"200\",\"content\":\"未兑换\"}";
+                }
             }
+            return "{\"code\":\"202\",\"content\":\"卡号不存在或已使用\"}";
         } catch (NumberFormatException e) {
             e.printStackTrace();
             return "{\"code\":\"201\",\"content\":\"系统异常\"}";

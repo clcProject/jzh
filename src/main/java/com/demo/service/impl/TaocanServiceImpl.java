@@ -234,7 +234,7 @@ public class TaocanServiceImpl implements TaocanService {
                 sb.append("\"taocanId\":\"" + card_taocan.getId() + "\",");
                 sb.append("\"imgurl\":\"" + card_taocan.getImgurl() + "\",");
                 sb.append("\"content\":\"" + card_taocan.getContent() + "\",");
-                sb.append("\"taocan_name\":\"" + card_taocan.getTaocan_name() + "\"},");
+                sb.append("\"taocan_name\":\"" + card_taocan.getTaocan_name() + "\"");
             }
             sb.append("]}");
             return sb.toString();
@@ -256,7 +256,9 @@ public class TaocanServiceImpl implements TaocanService {
                     sb.append("\"taocanId\":\"" + objects[0].toString() + "\",");
                     sb.append("\"imgurl\":\"" + objects[1].toString() + "\",");
                     sb.append("\"content\":\"" + objects[2].toString() + "\",");
-                    sb.append("\"taocan_name\":\"" + objects[3].toString() + "\"},");
+                    sb.append("\"card_name\":\"" + objects[3].toString() + "\",");
+                    sb.append("\"company_name\":\"" + objects[4].toString() + "\",");
+                    sb.append("\"taocan_name\":\"" + objects[5].toString() + "\"},");
                 }
             }
             sb.append("]}");

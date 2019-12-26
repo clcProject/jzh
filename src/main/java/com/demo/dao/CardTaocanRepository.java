@@ -35,12 +35,14 @@ public interface CardTaocanRepository extends JpaRepository<card_taocan, Integer
     @Transactional
     int deleteCardTaocan(int taocanId);
 
-    @Query(value = "SELECT t.id,t.imgurl,t.content,t.taocan_name FROM card_taocan AS t LEFT JOIN " +
-            "card_number AS n ON t.card_type_id = n.card_type_id WHERE n.cardno = ?1 AND n" +
-            ".`password` = ?2 AND t.isflag=0", nativeQuery = true)
+    @Query(value = "SELECT t.id,t.imgurl,t.content,(SELECT ct.card_name FROM card_number cn LEFT JOIN " +
+            "card_type ct ON cn.card_type_id=ct.id WHERE cn.cardno=?1) as card_name,(SELECT co" +
+            ".company FROM card_number cn LEFT JOIN card_company co ON cn.companyId=co.id WHERE cn" +
+            ".cardno=?1) as company_name,t.taocan_name FROM card_taocan AS t LEFT JOIN card_number " +
+            "AS n ON t.card_type_id = n.card_type_id WHERE n.cardno = ?1 AND n.`password` = " +
+            "?2 AND t.isflag=0;", nativeQuery = true)
     List<Object[]> getTaocanByCardInfo(String cardno, String password);
 
-    @Query(value = "SELECT t.id,t.imgurl,t.content,t.taocan_name FROM card_taocan as t WHERE t.id=?1 AND t" +
-            ".isflag=0", nativeQuery = true)
-    card_taocan getTaoCanById(Integer taocanID);
+    @Query(value = "SELECT * FROM card_taocan  WHERE id=?1 AND isflag=0", nativeQuery = true)
+    card_taocan getTaoCanById(int id);
 }

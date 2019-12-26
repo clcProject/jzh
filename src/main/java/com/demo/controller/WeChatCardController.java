@@ -6,6 +6,7 @@ import com.demo.service.OrderService;
 import com.demo.service.TaocanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -137,9 +138,9 @@ public class WeChatCardController {
      * @Param [request, response]
      * @return java.lang.String
      **/
-    @RequestMapping(value = "/addOrderByWeChat", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/addOrderByWeChat", method = RequestMethod.POST)
     public String addOrderByWeChat(HttpServletRequest request, HttpServletResponse response
-                                   , card_order cardOrder) {
+                                   , @RequestBody  card_order cardOrder) {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");

@@ -37,7 +37,7 @@ public interface CardNumberRepository extends JpaRepository<card_number, Integer
     @Transactional
     int deleteCardNumber(int cardId);
 
-    @Query(value = "SELECT card_state FROM card_number  WHERE cardno=?1 AND isfalg=0", nativeQuery =
+    @Query(value = "SELECT IFNULL(SUM(card_state), 0) FROM card_number  WHERE cardno=?1 AND isfalg=0 limit 1", nativeQuery =
             true)
     int IsExist(String cardno);
 }

@@ -25,7 +25,10 @@ public interface CardOrderRepository extends JpaRepository<card_order, Integer> 
     @Transactional
     int deleteOrder(int orderId);
 
-    @Query(value = "SELECT COUNT(0) FROM card_order WHERE card_number= ?1 AND isfalg=0;",nativeQuery = true)
+    @Query(value = "SELECT * from card_order t where t.id = ?1",nativeQuery = true)
+    card_order getOrderById(int id);
+
+    @Query(value = "SELECT COUNT(0) FROM card_order WHERE card_number= ?1 AND isfalg=0",nativeQuery = true)
     int getNumsByNumber(String card_number);
 
     @Query(value = "INSERT INTO card_order (\n" +

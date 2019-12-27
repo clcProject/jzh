@@ -139,14 +139,23 @@ public class WeChatCardController {
      * @return java.lang.String
      **/
     @RequestMapping(value = "/addOrderByWeChat", method = RequestMethod.POST)
-    public String addOrderByWeChat(HttpServletRequest request, HttpServletResponse response
-                                   , @RequestBody  card_order cardOrder) {
+    public String addOrderByWeChat(HttpServletRequest request, HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-        return orderService.insertOrderWeChat(cardOrder);
+        String Card_number=request.getParameter("Card_number");
+        String Address=request.getParameter("Address");
+        String Card_name=request.getParameter("Card_name");
+        String Company_name=request.getParameter("Company_name");
+        String Phone=request.getParameter("Phone");
+        String Taocan_id=request.getParameter("Taocan_id");
+        String Taocan_name=request.getParameter("Taocan_name");
+        String Username=request.getParameter("Username");
+        String Wechatid=request.getParameter("Wechatid");
+
+        return orderService.insertOrderWeChat(Card_number,Address,Card_name,Company_name,Phone,Taocan_id,Taocan_name,Username,Wechatid);
     }
 
 }

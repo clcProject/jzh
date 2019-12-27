@@ -261,10 +261,12 @@ public class TaocanServiceImpl implements TaocanService {
                     sb.append("\"taocan_name\":\"" + objects[5].toString() + "\"},");
                 }
             }
+            if (sb.toString().contains("taocan_name")){
+                sb = sb.deleteCharAt(sb.length() - 1);
+            }
             sb.append("]}");
             return sb.toString();
-        } catch (
-                NumberFormatException e) {
+        } catch (NumberFormatException e) {
             e.printStackTrace();
             return "{\"code\":\"201\",\"content\":\"系统异常\"}";
         }

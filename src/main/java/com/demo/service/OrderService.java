@@ -4,8 +4,8 @@ import com.demo.bean.card_order;
 
 public interface OrderService {
 
-    
-    String insertOrderWeChat(card_order cardOrder);
+
+    String insertOrderWeChat(String Card_number, String Address, String Card_name, String Company_name, String Phone, String Taocan_id, String Taocan_name, String Username, String Wechatid);
 
     String getOrderInfoById(Integer orderId);
 

@@ -29,6 +29,8 @@ public class NumberController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String startTime = request.getParameter("startTime");
         String endTime = request.getParameter("endTime");
@@ -53,6 +55,8 @@ public class NumberController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String cardTypeId = request.getParameter("cardTypeId");
         String companyId = request.getParameter("companyId");
@@ -72,6 +76,8 @@ public class NumberController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String cardId = request.getParameter("cardId");
 
@@ -89,6 +95,8 @@ public class NumberController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String cardNo = request.getParameter("cardNo");
         String password = request.getParameter("password");
@@ -110,6 +118,8 @@ public class NumberController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String cardId = request.getParameter("cardId");
         String cardNo = request.getParameter("cardNo");
@@ -132,6 +142,8 @@ public class NumberController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String cardTypeId = request.getParameter("cardTypeId");
         String companyId = request.getParameter("companyId");

@@ -45,6 +45,8 @@ public class WeChatCardController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String cardno=request.getParameter("cardno");
 
@@ -65,6 +67,8 @@ public class WeChatCardController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String cardno=request.getParameter("cardno");
         String password=request.getParameter("password");
@@ -86,6 +90,8 @@ public class WeChatCardController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         Integer taocanID= Integer.valueOf(request.getParameter("taocanId"));
 
@@ -106,6 +112,8 @@ public class WeChatCardController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String wechatID=request.getParameter("wechatID");
         return orderService.getOrderInfoByWeChatID(wechatID);
@@ -125,6 +133,8 @@ public class WeChatCardController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         Integer orderId= Integer.valueOf(request.getParameter("id"));
         return orderService.getOrderInfoById(orderId);
@@ -138,22 +148,33 @@ public class WeChatCardController {
      * @Param [request, response]
      * @return java.lang.String
      **/
-    @RequestMapping(value = "/addOrderByWeChat", method = RequestMethod.POST)
+    @RequestMapping(value = "/addOrderByWeChat", method = {RequestMethod.GET, RequestMethod.POST})
     public String addOrderByWeChat(HttpServletRequest request, HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
-        String Card_number=request.getParameter("Card_number");
-        String Address=request.getParameter("Address");
-        String Card_name=request.getParameter("Card_name");
-        String Company_name=request.getParameter("Company_name");
-        String Phone=request.getParameter("Phone");
-        String Taocan_id=request.getParameter("Taocan_id");
-        String Taocan_name=request.getParameter("Taocan_name");
-        String Username=request.getParameter("Username");
-        String Wechatid=request.getParameter("Wechatid");
+//        String Wechatid="NO";
+//        String Address=request.getParameter("address");
+//        String Card_name=request.getParameter("card_name");
+//        String Company_name=request.getParameter("company_name");
+//        String Phone=request.getParameter("phone");
+//        String Taocan_id=request.getParameter("taocan_id");
+//        String Taocan_name=request.getParameter("taocan_name");
+//        String Username=request.getParameter("username");
+//        String Card_number=request.getParameter("wechatid");
+        String Card_number=request.getParameter("card_number");
+        String Address=request.getParameter("address");
+        String Card_name=request.getParameter("card_name");
+        String Company_name=request.getParameter("company_name");
+        String Phone=request.getParameter("phone");
+        String Taocan_id=request.getParameter("taocan_id");
+        String Taocan_name=request.getParameter("taocan_name");
+        String Username=request.getParameter("username");
+        String Wechatid=request.getParameter("wechatid");
 
         return orderService.insertOrderWeChat(Card_number,Address,Card_name,Company_name,Phone,Taocan_id,Taocan_name,Username,Wechatid);
     }

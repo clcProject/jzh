@@ -29,6 +29,8 @@ public class TaocanController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String startTime = request.getParameter("startTime");
         String endTime = request.getParameter("endTime");
@@ -52,6 +54,8 @@ public class TaocanController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String cardTypeId = request.getParameter("cardTypeId");
         String companyId = request.getParameter("companyId");
@@ -70,6 +74,8 @@ public class TaocanController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String taocanId = request.getParameter("taocanId");
 
@@ -93,6 +99,8 @@ public class TaocanController {
         String companyId = request.getParameter("companyId");
         String content = request.getParameter("content");
         String imgBase64 = request.getParameter("imgBase64");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         return taocanService.addTaocan(taocanName,cardTypeId,companyId,content,imgBase64);
     }
@@ -115,6 +123,8 @@ public class TaocanController {
         String companyId = request.getParameter("companyId");
         String content = request.getParameter("content");
         String imgBase64 = request.getParameter("imgBase64");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         return taocanService.updateTaocan(taocanId,taocanName,cardTypeId,companyId,content,imgBase64);
     }

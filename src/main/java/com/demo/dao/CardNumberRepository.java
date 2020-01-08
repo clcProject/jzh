@@ -12,8 +12,7 @@ public interface CardNumberRepository extends JpaRepository<card_number, Integer
 
     @Query(value = "SELECT t.id,t.cardno,t.`password`,t.companyId,(SELECT b.company from card_company b " +
             "where b.id = t.companyId) as company_name,t.card_type_id,(SELECT c.card_name from card_type c " +
-            "where c.id = t.card_type_id) as cardType,t.createdate,CASE WHEN t.card_state = 0 THEN '未激活' " +
-            "WHEN t.card_state = 1 THEN '已激活' WHEN t.card_state = 2 THEN '未兑换' WHEN t.card_state = 3 THEN " +
+            "where c.id = t.card_type_id) as cardType,t.createdate,CASE WHEN t.card_state = 2 THEN '未兑换' WHEN t.card_state = 3 THEN " +
             "'已兑换' END AS '号卡状态' from card_number t where if(?1 !='',t.createdate > ?1,1=1) and if(?2 !=''," +
             "t.createdate < ?2,1=1) AND if(?3 !='',t.cardno like CONCAT('%',?3,'%'),1=1) AND if(?4 !='',t" +
             ".card_type_id = ?4,1=1) AND if(?5 !='',t.companyId = ?5,1=1) AND if(?6 !='',t.card_state = ?6," +
@@ -37,7 +36,12 @@ public interface CardNumberRepository extends JpaRepository<card_number, Integer
     @Transactional
     int deleteCardNumber(int cardId);
 
-    @Query(value = "SELECT IFNULL(SUM(card_state), 0) FROM card_number  WHERE cardno=?1 AND isfalg=0 limit 1", nativeQuery =
+    @Query(value = "UPDATE card_number t set t.card_state = 3 where t.cardno = ?1 AND t.companyId = ?2", nativeQuery = true)
+    @Modifying
+    @Transactional
+    int useCardNumber(String cardNo,int companyId);
+
+    @Query(value = "SELECT COUNT(0) FROM card_number  WHERE cardno=?1 AND isfalg=0 and card_state = 2", nativeQuery =
             true)
     int IsExist(String cardno);
 }

@@ -29,6 +29,8 @@ public class CompanyController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String startTime = request.getParameter("startTime");
         String endTime = request.getParameter("endTime");
@@ -51,6 +53,8 @@ public class CompanyController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         return companyService.getCompanyListAll();
     }
@@ -66,6 +70,8 @@ public class CompanyController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String companyId = request.getParameter("companyId");
 
@@ -83,6 +89,8 @@ public class CompanyController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String companyName = request.getParameter("companyName");
         String companyAddress = request.getParameter("companyAddress");
@@ -101,6 +109,8 @@ public class CompanyController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String companyid = request.getParameter("companyId");
         String companyName = request.getParameter("companyName");

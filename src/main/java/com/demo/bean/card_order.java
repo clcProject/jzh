@@ -26,8 +26,17 @@ public class card_order {
     private String express;
     private String express_no;
     private String logistics;
+    private String insertdate;
     private Timestamp createdate;
     private int isfalg;
+
+    public String getInsertdate() {
+        return insertdate;
+    }
+
+    public void setInsertdate(String insertdate) {
+        this.insertdate = insertdate;
+    }
 
     public int getId() {
         return id;

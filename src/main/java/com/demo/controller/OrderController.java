@@ -29,6 +29,8 @@ public class OrderController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String startTime = request.getParameter("startTime");
         String endTime = request.getParameter("endTime");
@@ -62,23 +64,17 @@ public class OrderController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String orderId = request.getParameter("orderId");
-        String wechatId = request.getParameter("wechatId");
-        String username = request.getParameter("username");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
-        String taocanName = request.getParameter("taocanName");
-        String cardType = request.getParameter("cardType");
-        String companyName = request.getParameter("companyName");
-        String cardNumber = request.getParameter("cardNumber");
         String orderState = request.getParameter("orderState");
         String express = request.getParameter("express");
         String expressNo = request.getParameter("expressNo");
-        String logistics = request.getParameter("logistics");
 
-
-        return orderService.updateOrder(orderId, wechatId, username, phone, address, taocanName,cardType,companyName,cardNumber,orderState,express,expressNo,logistics);
+        return orderService.updateOrder(orderId,phone, address,orderState,express,expressNo);
     }
 
     /*
@@ -92,10 +88,32 @@ public class OrderController {
         response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String orderId = request.getParameter("orderId");
 
         return orderService.deleteOrder(orderId);
+    }
+
+    /*
+     *@Author:xjy
+     *@Description:登录
+     *@Date:2019/12/28_10:28
+     */
+    @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
+    public String login(HttpServletRequest request, HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/plain;charset=utf-8");
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        return orderService.login(username,password);
     }
 
 
